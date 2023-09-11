@@ -27,5 +27,7 @@ def create_token():
 @api.route("/hello", methods=["GET"])
 @jwt_required()
 def get_hello():
-    msg = {"message": "Hello from the backend!"}
+
+    email = get_jwt_identity()
+    msg = {"message": "Hello from the backend " +email + "!"}
     return jsonify(msg)

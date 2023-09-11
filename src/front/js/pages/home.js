@@ -7,27 +7,15 @@ import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
-	const navigate = useNavigate()
-
-	const handleLogout = () => {
-        actions.logout();
-    }
 
 	useEffect(() => {
-		actions.getMessage();
-	})
+		if(store.token && store.token != "" && store.token != undefined) actions.getMessage();
+	}, [store.token]);
 
 	return (
 		<>
 			<div className="text-center mt-5">
 				<h1>{store.message}</h1>
-				{!store.token ? 
-					<Link to="/login">
-						<button className="btn btn-success">Log In</button>
-					</Link>
-					:
-					<button className="btn btn-warning" onClick={handleLogout}>Logout</button>
-				}
 				
 			</div>
 		</>
